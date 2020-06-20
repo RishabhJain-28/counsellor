@@ -1,6 +1,5 @@
 const express= require('express')
 const bodyParser= require('body-parser')
-const helmet= require('helmet')
 const mongoose= require('mongoose')
 const bcrypt= require('bcrypt')
 const jwt= require('jsonwebtoken')
@@ -15,7 +14,6 @@ const {User}= models
 
 auth.use(bodyParser.json())
 auth.use(bodyParser.urlencoded({extended: true}))
-auth.use(helmet())
 
 mongoConnection= 'mongodb://localhost/counsellor_portal'
 mongoose.connect(mongoConnection,{useNewUrlParser: true})
@@ -38,6 +36,7 @@ auth.post('/login',async (req,res)=>{
                 _id: user._id,
                 isCounsellor: user.isCounsellor
             }, config.get('jwtPrivateKey'))
+            req.jwt.token= token
             res.send(token)
         }
     }
