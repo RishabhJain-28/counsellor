@@ -6,6 +6,7 @@ const bcrypt= require('bcrypt')
 const jwt= require('jsonwebtoken')
 const models= require('../models')
 const config= require('config')
+const authmdw= require('../middleware/authmdw')
 
 const auth= express.Router()
 
@@ -41,6 +42,12 @@ auth.post('/login',async (req,res)=>{
         }
     }
     
+})
+
+// current user
+auth.get('/me',authmdw, async (req,res)=>{
+    var user= await User.findById(req.user._id).select(['-__v','-password'])
+    res.send(user)
 })
 
 module.exports =auth
