@@ -1,4 +1,5 @@
-const mongoose= require('mongoose')
+const mongoose= require('mongoose');
+const moment = require('moment');
 
 // user schema
 
@@ -16,7 +17,33 @@ const userSchema=mongoose.Schema({
         type: Boolean,
         default: false
     }
-})
+});
+
+
+// blog schema
+
+const blogSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {  
+        type: String,
+        required: true
+    },
+    body: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    date: {
+        type: String,
+        default: moment().format('ll')
+    }
+});
 
 // memberSchema
 
@@ -103,8 +130,10 @@ const appointmentSchema=mongoose.Schema({
 
 module.exports={
     userSchema: userSchema,
+    blogSchema: blogSchema,
     groupSchema: groupSchema,
     appointmentSchema: appointmentSchema,
     memberSchema: memberSchema,
     slotSchema: slotSchema
+
 }
