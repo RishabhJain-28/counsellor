@@ -1,14 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 mongoose.set('useFindAndModify', false);
 
 // middleware
 const author = require('../middleware/author');
 
-const { Blog, validateBlog } = require('../models/blog');
+const { Blog } = require('../models');
 
 const router = express.Router();
+
+// functions
+
+// validate blog function
+function validateBlog(blog){
+    const schema = {
+        title: Joi.string().required(),
+        description: Joi.string().required(),
+        body: Joi.string().required()
+    };
+
+    return Joi.validate(blog, schema);
+};
 
 // Requests -->
 

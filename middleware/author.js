@@ -1,4 +1,4 @@
-const { Blog } = require('../models/blog');
+const { Blog } = require('../models');
 
 module.exports = async (req, res, next) => {
     const blog = await Blog.findById(req.params.id)
