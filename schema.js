@@ -53,9 +53,31 @@ const groupSchema=mongoose.Schema({
     }
 }, {timestamps:true})
 
+// slot schema
+
+const slotSchema=mongoose.Schema({
+    from: {
+        type: String,
+        required: true
+    },
+    to: {
+        type: String,
+        required: true
+    },
+    booked:{
+        type: Boolean,
+        default: false
+    }
+})
+
+
 // appointment schema
 
 const appointmentSchema=mongoose.Schema({
+    slotId: {
+        type: String,
+        required: true
+    },
     from: {
         type: String,
         required: true
@@ -83,5 +105,6 @@ module.exports={
     userSchema: userSchema,
     groupSchema: groupSchema,
     appointmentSchema: appointmentSchema,
-    memberSchema: memberSchema
+    memberSchema: memberSchema,
+    slotSchema: slotSchema
 }

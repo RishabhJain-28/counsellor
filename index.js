@@ -7,6 +7,10 @@ const register= require('./routes/register')
 const auth= require('./routes/auth')
 const config= require('config')
 const sessions= require('client-sessions')
+const groups= require('./routes/groups')
+const appointment= require('./routes/appointment')
+const slot= require('./routes/slot')
+
 
 const PORT= process.env.PORT || 3000
 
@@ -24,6 +28,7 @@ app.use(sessions({
     duration: 60*60*1000 // 1 hour
 }))
 
+
 app.use(bodyParser.json()) 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(helmet())
@@ -31,6 +36,10 @@ app.use(express.static(path.join(__dirname,'public')))
 
 app.use('/register',register)
 app.use('/auth',auth)
+app.use('/groups',groups)
+app.use('/appointment',appointment)
+app.use('/slot',slot)
+
 
 mongoConnection= 'mongodb://localhost/counsellor_portal'
 mongoose.connect(mongoConnection,{useNewUrlParser: true})
