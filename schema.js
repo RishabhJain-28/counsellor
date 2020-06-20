@@ -19,6 +19,7 @@ const userSchema=mongoose.Schema({
     }
 });
 
+
 // blog schema
 
 const blogSchema = new mongoose.Schema({
@@ -44,8 +45,95 @@ const blogSchema = new mongoose.Schema({
     }
 });
 
+// memberSchema
+
+const memberSchema={
+    username: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true,
+        minlength: 20,
+        maxlength: 300
+    },
+    category: {
+        type: String,
+        required: true
+    }
+    
+}
+
+// groupSchema
+
+const groupSchema=mongoose.Schema({
+    groupDescription:{
+        type: String,
+        required: true
+    },
+    members: [memberSchema],
+    counsellorName: {
+        type: String, 
+        required: true
+    }
+}, {timestamps:true})
+
+// slot schema
+
+const slotSchema=mongoose.Schema({
+    from: {
+        type: String,
+        required: true
+    },
+    to: {
+        type: String,
+        required: true
+    },
+    booked:{
+        type: Boolean,
+        default: false
+    }
+})
+
+
+// appointment schema
+
+const appointmentSchema=mongoose.Schema({
+    slotId: {
+        type: String,
+        required: true
+    },
+    from: {
+        type: String,
+        required: true
+    },
+    to: {
+        type: String,
+        required: true
+    },
+    memberUsername:{
+        type: String,
+        required: true
+    },
+    memberId:{
+        type: String,
+        required: true
+    },
+    counsellorName:{
+        type: String, 
+        required: true
+    },
+    message: String
+},{timestamps: true})
 
 module.exports={
     userSchema: userSchema,
-    blogSchema: blogSchema
+    blogSchema: blogSchema,
+    groupSchema: groupSchema,
+    appointmentSchema: appointmentSchema,
+    memberSchema: memberSchema,
+    slotSchema: slotSchema
+
 }

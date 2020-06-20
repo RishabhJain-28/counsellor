@@ -1,6 +1,5 @@
 const express= require('express')
 const bodyParser= require('body-parser')
-const helmet= require('helmet')
 const mongoose= require('mongoose')
 const bcrypt= require('bcrypt')
 const models= require('../models')
@@ -14,7 +13,6 @@ const {User}= models
 
 register.use(bodyParser.json())
 register.use(bodyParser.urlencoded({extended: true}))
-register.use(helmet())
 
 mongoConnection= 'mongodb://localhost/counsellor_portal'
 mongoose.connect(mongoConnection,{useNewUrlParser: true})
