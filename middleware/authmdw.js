@@ -8,7 +8,7 @@ function authmdw(req, res, next) {
 
 	try {
 		const decodedToken = jwt.verify(token, config.get("jwtPrivateKey"));
-		// console.log(decodedToken);
+		console.log(decodedToken);
 		req.user = decodedToken;
 		next();
 	} catch (err) {

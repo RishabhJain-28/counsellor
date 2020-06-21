@@ -7,9 +7,7 @@ const register = require("./routes/register");
 const auth = require("./routes/auth");
 const config = require("config");
 const cookieParsser = require("cookie-parser");
-const sessions = require("client-sessions");
-const jwt = require("jsonwebtoken");
-
+const cors = require("cors");
 const groups = require("./routes/groups");
 const appointment = require("./routes/appointment");
 const slot = require("./routes/slot");
@@ -32,6 +30,16 @@ if (!config.get("jwtPrivateKey")) {
 // 		duration: 60 * 60 * 1000, // 1 hour
 // 	})
 // );
+
+app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Credentials", true);
+	res.header("Access-Control-Allow-Origin", req.headers.origin);
+	res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,UPDATE,OPTIONS");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
+	next();
+});
+
+// app.use(cors());
 app.use(cookieParsser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -45,6 +45,7 @@ auth.post("/login", async (req, res) => {
 				httpOnly: true,
 				maxAge: 1000 * 60 * 60 * 24, //one day
 			});
+			console.log(token);
 
 			res.send(token);
 		}
