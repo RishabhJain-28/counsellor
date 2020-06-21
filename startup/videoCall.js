@@ -51,8 +51,9 @@ module.exports = function (server) {
 		io.sockets.emit("allUsers", users);
 		io.sockets.emit("counsellor", counsellor.socketId);
 		socket.on("disconnect", () => {
-			// if (req.user.isCounsellor) counsellor = null;
-			// else delete users[socket.id];
+			console.log("disconnecting...");
+			if (socket.user.isCounsellor) counsellor = null;
+			else delete users[socket.id];
 		});
 
 		socket.on("callUser", data => {
