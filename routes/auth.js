@@ -36,7 +36,8 @@ auth.post('/login',async (req,res)=>{
                 _id: user._id,
                 isCounsellor: user.isCounsellor
             }, config.get('jwtPrivateKey'))
-            req.jwt.token= token
+            
+            res.cookie('jwt',token, {expires: new Date(Date.now() + 60*60*1000), httpOnly: true })
             res.send(token)
         }
     }

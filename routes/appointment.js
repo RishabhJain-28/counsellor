@@ -3,7 +3,9 @@ const bodyParser= require('body-parser')
 const mongoose= require('mongoose')
 const models= require('../models')
 const authmdw= require('../middleware/authmdw')
+const validate= require('../middleware/validate')
 
+const {validateAppointment}= validate
 const appointment= express.Router()
 
 appointment.use(bodyParser.json())
@@ -17,7 +19,7 @@ appointment.get('/',authmdw,(req,res)=>{
     res.send("create an appointment with your Therapist")
 })
 
-appointment.post('/create',authmdw ,async (req,res)=>{
+appointment.post('/create',[authmdw, validateAppointment] ,async (req,res)=>{
     var apt= new Appointment(req.body)
     var newAppointment= await apt.save()
     res.send(newAppointment)

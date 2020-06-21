@@ -105,6 +105,10 @@ const appointmentSchema=mongoose.Schema({
         type: String,
         required: true
     },
+    onDate:{
+        type: String,
+        required: true
+    },
     from: {
         type: String,
         required: true
