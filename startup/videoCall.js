@@ -1,8 +1,5 @@
-const express = require("express");
 const socket = require("socket.io");
-const authmdw = require("../middleware/authmdw");
 const socketCookieParser = require("socket.io-cookie-parser");
-const { func } = require("joi");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
@@ -52,6 +49,7 @@ module.exports = function (server) {
 		io.sockets.emit("counsellor", counsellor.socketId);
 		socket.on("disconnect", () => {
 			console.log("disconnecting...");
+
 			if (socket.user.isCounsellor) counsellor = null;
 			else delete users[socket.id];
 		});
